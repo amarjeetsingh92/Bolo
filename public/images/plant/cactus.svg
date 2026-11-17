@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+    <rect width="400" height="400" rx="30" fill="#FEFCE8"/>
+    <!-- Desert Mound -->
+    <path d="M 50 360 C 150 340, 250 340, 350 360 L 350 380 L 50 380 Z" fill="#FDE047"/>
+    <!-- Main Center Stem -->
+    <rect x="170" y="90" width="60" height="260" rx="30" fill="#16A34A" stroke="#14532D" stroke-width="5"/>
+    <!-- Left Arm -->
+    <path d="M 175 220 L 110 220 A 25 25 0 0 1 85 195 L 85 150 A 25 25 0 0 1 135 150 L 135 180 L 175 180" fill="#16A34A" stroke="#14532D" stroke-width="5"/>
+    <!-- Right Arm -->
+    <path d="M 225 240 L 290 240 A 25 25 0 0 0 315 215 L 315 170 A 25 25 0 0 0 265 170 L 265 200 L 225 200" fill="#16A34A" stroke="#14532D" stroke-width="5"/>
+    <!-- Vertical Rib Lines -->
+    <line x1="190" y1="100" x2="190" y2="340" stroke="#15803D" stroke-width="4"/>
+    <line x1="210" y1="100" x2="210" y2="340" stroke="#15803D" stroke-width="4"/>
+    <!-- Little Flower on top -->
+    <circle cx="200" cy="85" r="14" fill="#F43F5E"/>
+    <circle cx="200" cy="85" r="6" fill="#FACC15"/>
+  </svg>

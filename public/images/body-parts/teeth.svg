@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <rect width="400" height="400" rx="30" fill="#F8FAFC"/>
+  <!-- Gums (Upper & Lower) -->
+  <path d="M 60 160 C 130 90, 270 90, 340 160 C 270 140, 130 140, 60 160 Z" fill="#FB7185"/>
+  <path d="M 60 240 C 130 310, 270 310, 340 240 C 270 260, 130 260, 60 240 Z" fill="#FB7185"/>
+  <!-- Mouth Cavity Dark Background -->
+  <rect x="70" y="150" width="260" height="100" rx="20" fill="#881337"/>
+  <!-- Upper Teeth Row -->
+  <rect x="85" y="145" width="26" height="35" rx="6" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <rect x="115" y="140" width="28" height="40" rx="6" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <rect x="147" y="135" width="30" height="45" rx="6" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <rect x="181" y="135" width="38" height="48" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <rect x="223" y="135" width="30" height="45" rx="6" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <rect x="257" y="140" width="28" height="40" rx="6" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <rect x="289" y="145" width="26" height="35" rx="6" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <!-- Lower Teeth Row -->
+  <rect x="95" y="210" width="26" height="35" rx="6" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <rect x="125" y="215" width="28" height="38" rx="6" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <rect x="157" y="215" width="28" height="40" rx="6" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <rect x="189" y="215" width="28" height="40" rx="6" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <rect x="221" y="215" width="28" height="40" rx="6" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <rect x="253" y="215" width="28" height="38" rx="6" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <rect x="283" y="210" width="26" height="35" rx="6" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <!-- Clean Sparkle effect -->
+  <path d="M 220 135 L 225 120 L 230 135 L 245 140 L 230 145 L 225 160 L 220 145 L 205 140 Z" fill="#38BDF8"/>
+</svg>

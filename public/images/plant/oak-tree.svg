@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+    <rect width="400" height="400" rx="30" fill="#F0FDF4"/>
+    <!-- Ground -->
+    <path d="M 40 360 C 140 350, 260 350, 360 360 L 360 380 L 40 380 Z" fill="#86EFAC"/>
+    <!-- Thick Oak Trunk & Roots -->
+    <path d="M 180 230 L 170 360 L 140 370 L 180 360 L 200 360 L 220 360 L 260 370 L 230 360 L 220 230 Z" fill="#78350F" stroke="#451A03" stroke-width="4"/>
+    <!-- Main Branches -->
+    <path d="M 185 240 Q 130 190 110 180" stroke="#78350F" stroke-width="16" stroke-linecap="round" fill="none"/>
+    <path d="M 215 240 Q 270 190 290 180" stroke="#78350F" stroke-width="16" stroke-linecap="round" fill="none"/>
+    <!-- Broad Green Canopy -->
+    <circle cx="130" cy="160" r="60" fill="#15803D"/>
+    <circle cx="270" cy="160" r="60" fill="#15803D"/>
+    <circle cx="160" cy="110" r="65" fill="#16A34A"/>
+    <circle cx="240" cy="110" r="65" fill="#16A34A"/>
+    <circle cx="200" cy="80" r="60" fill="#22C55E"/>
+    <circle cx="200" cy="150" r="70" fill="#15803D"/>
+  </svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+    <rect width="400" height="400" rx="30" fill="#FFF1F2"/>
+    <!-- Stem -->
+    <path d="M 200 250 L 200 380" stroke="#15803D" stroke-width="10" stroke-linecap="round"/>
+    <!-- 5 Big Wavy Red Petals -->
+    <g fill="#E11D48" stroke="#BE123C" stroke-width="4">
+      <path d="M 200 190 C 130 90, 270 90, 200 190 Z" transform="rotate(0 200 190) scale(1.4) translate(-57 -55)"/><path d="M 200 190 C 130 90, 270 90, 200 190 Z" transform="rotate(72 200 190) scale(1.4) translate(-57 -55)"/><path d="M 200 190 C 130 90, 270 90, 200 190 Z" transform="rotate(144 200 190) scale(1.4) translate(-57 -55)"/><path d="M 200 190 C 130 90, 270 90, 200 190 Z" transform="rotate(216 200 190) scale(1.4) translate(-57 -55)"/><path d="M 200 190 C 130 90, 270 90, 200 190 Z" transform="rotate(288 200 190) scale(1.4) translate(-57 -55)"/>
+    </g>
+    <!-- Long Yellow Stamen Column -->
+    <path d="M 200 190 Q 230 110 260 70" stroke="#FBBF24" stroke-width="8" stroke-linecap="round" fill="none"/>
+    <circle cx="260" cy="70" r="10" fill="#EF4444"/>
+    <circle cx="250" cy="85" r="5" fill="#F59E0B"/>
+    <circle cx="240" cy="100" r="5" fill="#F59E0B"/>
+    <circle cx="230" cy="115" r="5" fill="#F59E0B"/>
+  </svg>

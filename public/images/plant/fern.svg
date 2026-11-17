@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+    <rect width="400" height="400" rx="30" fill="#F0FDF4"/>
+    <!-- Arched Center Stem -->
+    <path d="M 80 370 Q 180 280 280 90" stroke="#15803D" stroke-width="8" stroke-linecap="round" fill="none"/>
+    <!-- Feathery Leaflets on both sides -->
+    <g fill="#22C55E" stroke="#15803D" stroke-width="2">
+      
+          <ellipse cx="74.35" cy="324.9" rx="42.75" ry="14.962499999999999" transform="rotate(-30 100 342)"/>
+          <ellipse cx="125.65" cy="359.1" rx="42.75" ry="14.962499999999999" transform="rotate(30 100 342)"/>
+        
+          <ellipse cx="95.7" cy="297.8" rx="40.5" ry="14.174999999999999" transform="rotate(-30 120 314)"/>
+          <ellipse cx="144.3" cy="330.2" rx="40.5" ry="14.174999999999999" transform="rotate(30 120 314)"/>
+        
+          <ellipse cx="117.05" cy="270.7" rx="38.25" ry="13.3875" transform="rotate(-30 140 286)"/>
+          <ellipse cx="162.95" cy="301.3" rx="38.25" ry="13.3875" transform="rotate(30 140 286)"/>
+        
+          <ellipse cx="138.4" cy="243.6" rx="36" ry="12.6" transform="rotate(-30 160 258)"/>
+          <ellipse cx="181.6" cy="272.4" rx="36" ry="12.6" transform="rotate(30 160 258)"/>
+        
+          <ellipse cx="159.75" cy="216.5" rx="33.75" ry="11.8125" transform="rotate(-30 180 230)"/>
+          <ellipse cx="200.25" cy="243.5" rx="33.75" ry="11.8125" transform="rotate(30 180 230)"/>
+        
+          <ellipse cx="181.1" cy="189.4" rx="31.499999999999996" ry="11.024999999999999" transform="rotate(-30 200 202)"/>
+          <ellipse cx="218.9" cy="214.6" rx="31.499999999999996" ry="11.024999999999999" transform="rotate(30 200 202)"/>
+        
+          <ellipse cx="202.45" cy="162.3" rx="29.25" ry="10.237499999999999" transform="rotate(-30 220 174)"/>
+          <ellipse cx="237.55" cy="185.7" rx="29.25" ry="10.237499999999999" transform="rotate(30 220 174)"/>
+        
+          <ellipse cx="223.8" cy="135.2" rx="27" ry="9.45" transform="rotate(-30 240 146)"/>
+          <ellipse cx="256.2" cy="156.8" rx="27" ry="9.45" transform="rotate(30 240 146)"/>
+        
+          <ellipse cx="245.15" cy="108.1" rx="24.750000000000004" ry="8.662500000000001" transform="rotate(-30 260 118)"/>
+          <ellipse cx="274.85" cy="127.9" rx="24.750000000000004" ry="8.662500000000001" transform="rotate(30 260 118)"/>
+        
+    </g>
+  </svg>

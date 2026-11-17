@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+    <rect width="400" height="400" rx="30" fill="#F8FAFC"/>
+    <!-- Green Twig & Leaves -->
+    <path d="M 120 340 Q 200 260 220 180" stroke="#16A34A" stroke-width="8" stroke-linecap="round" fill="none"/>
+    <path d="M 160 280 Q 90 260 110 220 Q 150 250 160 280" fill="#22C55E"/>
+    <!-- White Star Blossom -->
+    <g fill="#FFFFFF" stroke="#CBD5E1" stroke-width="3">
+      <ellipse cx="220" cy="110" rx="16" ry="45" transform="rotate(0 220 180)"/><ellipse cx="220" cy="110" rx="16" ry="45" transform="rotate(60 220 180)"/><ellipse cx="220" cy="110" rx="16" ry="45" transform="rotate(120 220 180)"/><ellipse cx="220" cy="110" rx="16" ry="45" transform="rotate(180 220 180)"/><ellipse cx="220" cy="110" rx="16" ry="45" transform="rotate(240 220 180)"/><ellipse cx="220" cy="110" rx="16" ry="45" transform="rotate(300 220 180)"/>
+    </g>
+    <!-- Center golden tube -->
+    <circle cx="220" cy="180" r="14" fill="#FEF08A" stroke="#FACC15" stroke-width="2"/>
+  </svg>

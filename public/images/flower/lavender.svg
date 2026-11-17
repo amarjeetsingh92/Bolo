@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+    <rect width="400" height="400" rx="30" fill="#FAF5FF"/>
+    <!-- Slender Stems -->
+    <line x1="160" y1="180" x2="160" y2="380" stroke="#16A34A" stroke-width="6" stroke-linecap="round"/>
+    <line x1="200" y1="110" x2="200" y2="380" stroke="#15803D" stroke-width="7" stroke-linecap="round"/>
+    <line x1="240" y1="180" x2="240" y2="380" stroke="#16A34A" stroke-width="6" stroke-linecap="round"/>
+    <!-- Purple Flower Spikes (Main Stem) -->
+    <g fill="#A855F7" stroke="#7E22CE" stroke-width="2">
+      
+        <ellipse cx="185" cy="130" rx="12" ry="8" transform="rotate(-25 185 130)"/>
+        <ellipse cx="215" cy="130" rx="12" ry="8" transform="rotate(25 215 130)"/>
+        <ellipse cx="200" cy="120" rx="10" ry="7"/>
+      
+        <ellipse cx="185" cy="152" rx="12" ry="8" transform="rotate(-25 185 152)"/>
+        <ellipse cx="215" cy="152" rx="12" ry="8" transform="rotate(25 215 152)"/>
+        <ellipse cx="200" cy="142" rx="10" ry="7"/>
+      
+        <ellipse cx="185" cy="174" rx="12" ry="8" transform="rotate(-25 185 174)"/>
+        <ellipse cx="215" cy="174" rx="12" ry="8" transform="rotate(25 215 174)"/>
+        <ellipse cx="200" cy="164" rx="10" ry="7"/>
+      
+        <ellipse cx="185" cy="196" rx="12" ry="8" transform="rotate(-25 185 196)"/>
+        <ellipse cx="215" cy="196" rx="12" ry="8" transform="rotate(25 215 196)"/>
+        <ellipse cx="200" cy="186" rx="10" ry="7"/>
+      
+        <ellipse cx="185" cy="218" rx="12" ry="8" transform="rotate(-25 185 218)"/>
+        <ellipse cx="215" cy="218" rx="12" ry="8" transform="rotate(25 215 218)"/>
+        <ellipse cx="200" cy="208" rx="10" ry="7"/>
+      
+        <ellipse cx="185" cy="240" rx="12" ry="8" transform="rotate(-25 185 240)"/>
+        <ellipse cx="215" cy="240" rx="12" ry="8" transform="rotate(25 215 240)"/>
+        <ellipse cx="200" cy="230" rx="10" ry="7"/>
+      
+        <ellipse cx="185" cy="262" rx="12" ry="8" transform="rotate(-25 185 262)"/>
+        <ellipse cx="215" cy="262" rx="12" ry="8" transform="rotate(25 215 262)"/>
+        <ellipse cx="200" cy="252" rx="10" ry="7"/>
+      
+        <ellipse cx="185" cy="284" rx="12" ry="8" transform="rotate(-25 185 284)"/>
+        <ellipse cx="215" cy="284" rx="12" ry="8" transform="rotate(25 215 284)"/>
+        <ellipse cx="200" cy="274" rx="10" ry="7"/>
+      
+    </g>
+  </svg>

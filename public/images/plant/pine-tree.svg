@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+    <rect width="400" height="400" rx="30" fill="#F0FDF4"/>
+    <!-- Ground -->
+    <line x1="60" y1="360" x2="340" y2="360" stroke="#86EFAC" stroke-width="8" stroke-linecap="round"/>
+    <!-- Trunk -->
+    <rect x="185" y="300" width="30" height="60" rx="4" fill="#78350F" stroke="#451A03" stroke-width="3"/>
+    <!-- Conical Needle Tiers -->
+    <!-- Bottom Tier -->
+    <polygon points="200,190 80,310 320,310" fill="#14532D" stroke="#052E16" stroke-width="4"/>
+    <!-- Middle Tier -->
+    <polygon points="200,120 110,220 290,220" fill="#166534" stroke="#052E16" stroke-width="4"/>
+    <!-- Top Tier -->
+    <polygon points="200,50 140,140 260,140" fill="#15803D" stroke="#052E16" stroke-width="4"/>
+  </svg>

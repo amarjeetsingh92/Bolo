@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+    <rect width="400" height="400" rx="30" fill="#F0FDF4"/>
+    <!-- Soil Base -->
+    <path d="M 40 350 L 360 350 L 360 380 L 40 380 Z" fill="#78350F"/>
+    <!-- Lush Grass Blades -->
+    <path d="M 70 350 Q 80 200 60 120 Q 90 220 100 350" fill="#15803D"/>
+    <path d="M 110 350 Q 130 180 120 90 Q 140 200 150 350" fill="#16A34A"/>
+    <path d="M 160 350 Q 180 160 170 70 Q 190 190 200 350" fill="#22C55E"/>
+    <path d="M 200 350 Q 220 150 240 70 Q 230 180 240 350" fill="#4ADE80"/>
+    <path d="M 250 350 Q 270 170 290 90 Q 280 200 290 350" fill="#16A34A"/>
+    <path d="M 300 350 Q 320 200 340 130 Q 320 220 330 350" fill="#15803D"/>
+  </svg>

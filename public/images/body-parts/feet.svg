@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <rect width="400" height="400" rx="30" fill="#F8FAFC"/>
+  <!-- Sole of Foot & 5 Toes -->
+  <!-- Main Foot Sole Profile -->
+  <path d="M 180 340 C 120 340, 110 270, 120 220 C 130 160, 140 130, 200 120 C 260 110, 280 150, 270 200 C 260 250, 260 300, 240 330 C 220 340, 200 340, 180 340 Z" fill="#FED7AA" stroke="#F97316" stroke-width="6"/>
+  <!-- Big Toe -->
+  <ellipse cx="150" cy="90" rx="22" ry="26" fill="#FED7AA" stroke="#F97316" stroke-width="5"/>
+  <!-- Second Toe -->
+  <ellipse cx="190" cy="80" rx="16" ry="22" fill="#FED7AA" stroke="#F97316" stroke-width="5"/>
+  <!-- Third Toe -->
+  <ellipse cx="225" cy="85" rx="14" ry="19" fill="#FED7AA" stroke="#F97316" stroke-width="5"/>
+  <!-- Fourth Toe -->
+  <ellipse cx="255" cy="95" rx="12" ry="16" fill="#FED7AA" stroke="#F97316" stroke-width="5"/>
+  <!-- Pinky Toe -->
+  <ellipse cx="280" cy="115" rx="10" ry="14" fill="#FED7AA" stroke="#F97316" stroke-width="5"/>
+</svg>

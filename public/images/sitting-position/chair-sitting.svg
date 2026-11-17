@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <rect width="400" height="400" rx="30" fill="#FAF5FF"/>
+  <!-- Floor line -->
+  <line x1="40" y1="360" x2="360" y2="360" stroke="#E9D5FF" stroke-width="6" stroke-linecap="round"/>
+  <!-- Wooden / Study Chair (Backrest, Seat, Legs) -->
+  <line x1="130" y1="120" x2="130" y2="360" stroke="#D97706" stroke-width="12" stroke-linecap="round"/>
+  <line x1="120" y1="240" x2="240" y2="240" stroke="#B45309" stroke-width="14" stroke-linecap="round"/>
+  <line x1="230" y1="240" x2="230" y2="360" stroke="#D97706" stroke-width="12" stroke-linecap="round"/>
+  <!-- Figure: Head -->
+  <circle cx="180" cy="80" r="34" fill="#C084FC" stroke="#7E22CE" stroke-width="5"/>
+  <!-- Upright straight spine -->
+  <path d="M 180 115 L 180 230" stroke="#7E22CE" stroke-width="22" stroke-linecap="round"/>
+  <!-- Thigh (Horizontal on seat) -->
+  <path d="M 180 230 L 260 230" stroke="#9333EA" stroke-width="20" stroke-linecap="round"/>
+  <!-- Shin (Vertical 90 degrees to floor) -->
+  <path d="M 260 230 L 260 350" stroke="#9333EA" stroke-width="20" stroke-linecap="round"/>
+  <!-- Foot flat on ground -->
+  <ellipse cx="275" cy="355" rx="20" ry="8" fill="#7E22CE"/>
+  <!-- Arm resting in lap -->
+  <path d="M 180 140 C 200 170, 220 200, 230 220" stroke="#7E22CE" stroke-width="12" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+    <rect width="400" height="400" rx="30" fill="#ECFEFF"/>
+    <!-- Sand Hill -->
+    <path d="M 40 370 C 120 350, 280 350, 360 370 L 360 390 L 40 390 Z" fill="#FDE047"/>
+    <!-- Curved Palm Trunk with Segments -->
+    <path d="M 220 360 Q 230 250 190 140" stroke="#A16207" stroke-width="26" stroke-linecap="round" fill="none"/>
+    <path d="M 220 360 Q 230 250 190 140" stroke="#78350F" stroke-width="24" stroke-linecap="round" fill="none"/>
+    <!-- Coconuts -->
+    <circle cx="180" cy="140" r="14" fill="#78350F"/>
+    <circle cx="200" cy="145" r="14" fill="#92400E"/>
+    <circle cx="190" cy="155" r="14" fill="#78350F"/>
+    <!-- Palm Fronds (Arched Leaves) -->
+    <path d="M 190 135 Q 90 90 50 130 Q 110 130 190 135" fill="#15803D"/>
+    <path d="M 190 135 Q 110 50 100 80 Q 140 100 190 135" fill="#16A34A"/>
+    <path d="M 190 135 Q 200 40 210 40 Q 210 90 190 135" fill="#22C55E"/>
+    <path d="M 190 135 Q 280 50 300 80 Q 250 100 190 135" fill="#16A34A"/>
+    <path d="M 190 135 Q 310 90 350 130 Q 280 130 190 135" fill="#15803D"/>
+    <path d="M 190 135 Q 260 170 300 200 Q 240 170 190 135" fill="#15803D"/>
+  </svg>
