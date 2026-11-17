@@ -1,33 +1,102 @@
-import React, { useState } from "react";
-import { Volume2, Dices, ArrowLeft, Plus } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Volume2, Dices, ArrowLeft, Plus, RefreshCw, Sparkles, CheckCircle2 } from "lucide-react";
 import ImageWithFallback from "./ImageWithFallback";
 import { speakWord } from "../utils/speech";
+import { fetchAlternativeImages } from "../services/imageApi";
 
 export default function FlashcardView({
   category,
-  currentIndex,
+  currentItem,
+  cyclePosition = 1,
+  totalInCycle = 1,
+  cycleNumber = 1,
   onNextRandom,
   onBack,
   onOpenAddModal
 }) {
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const currentItem = category.items[currentIndex] || category.items[0];
+  const [imageList, setImageList] = useState([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isFetchingPhotos, setIsFetchingPhotos] = useState(false);
 
-  // User requirement: "When I click the things, then only the name."
-  // Speaking happens ONLY when the user clicks the picture or the sound button!
-  const handleSpeak = () => {
+  // When currentItem changes, reset photo index and load initial image
+  useEffect(() => {
     if (!currentItem) return;
+    setCurrentImageIndex(0);
+    const initialList = currentItem.images && currentItem.images.length > 0
+      ? currentItem.images
+      : [currentItem.image];
+    setImageList(initialList);
+  }, [currentItem?.id, currentItem?.image]);
+
+  if (!currentItem) {
+    return (
+      <div className="max-w-md mx-auto p-6 bg-white rounded-3xl border-2 border-slate-200 text-center space-y-4">
+        <span className="text-5xl">{category.icon}</span>
+        <h3 className="text-xl font-bold text-slate-800">
+          No words in {category.title} yet!
+        </h3>
+        <p className="text-xs text-slate-500">
+          Be the first to add words to this category.
+        </p>
+        <div className="flex justify-center gap-2 pt-2">
+          <button
+            onClick={onBack}
+            className="px-4 py-2 rounded-xl bg-slate-100 font-bold text-xs text-slate-700 hover:bg-slate-200"
+          >
+            Go Back
+          </button>
+          <button
+            onClick={onOpenAddModal}
+            className="px-4 py-2 rounded-xl bg-amber-500 font-bold text-xs text-white hover:bg-amber-600 flex items-center gap-1.5"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Add Word</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // User requirement: Speaking happens ONLY when clicking picture or sound button!
+  const handleSpeak = () => {
     setIsSpeaking(true);
     speakWord(currentItem.name, {
       onEnd: () => setIsSpeaking(false)
     });
   };
 
-  // User requirement: "I don't want that whenever I click Next, they automatically say the name."
-  // Clicking Next just switches to the next random item silently!
-  const handleNextClick = () => {
-    onNextRandom();
+  // User requirement: Multiple images per word + Refresh button to switch photos
+  const handleRefreshPhoto = async (e) => {
+    e?.stopPropagation(); // Prevent pronouncing word when refreshing image
+    if (isFetchingPhotos) return;
+
+    // If we only have 1 image, fetch alternate photos from Wikimedia Commons
+    if (imageList.length <= 1) {
+      setIsFetchingPhotos(true);
+      try {
+        const alternates = await fetchAlternativeImages(
+          currentItem.name,
+          currentItem.image,
+          8
+        );
+        if (alternates && alternates.length > 1) {
+          setImageList(alternates);
+          setCurrentImageIndex(1); // switch to second photo immediately
+        }
+      } catch (err) {
+        console.warn("Could not fetch alternate photos:", err);
+      } finally {
+        setIsFetchingPhotos(false);
+      }
+      return;
+    }
+
+    // Cycle to next photo in our list
+    setCurrentImageIndex((prev) => (prev + 1) % imageList.length);
   };
+
+  const activePhotoUrl = imageList[currentImageIndex] || currentItem.image;
 
   return (
     <div className="max-w-md mx-auto space-y-4">
@@ -60,6 +129,23 @@ export default function FlashcardView({
         </div>
       </div>
 
+      {/* Cycle Progress Bar: Guarantees every image comes at least once in a cycle */}
+      <div className="bg-white rounded-2xl px-4 py-2 border border-slate-200 shadow-sm flex items-center justify-between text-xs">
+        <div className="flex items-center gap-1.5 font-bold text-slate-600">
+          <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+          <span>Card {cyclePosition} of {totalInCycle}</span>
+          {cycleNumber > 1 && (
+            <span className="text-[10px] text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded-full border border-amber-200">
+              Mix #{cycleNumber}
+            </span>
+          )}
+        </div>
+        <div className="flex items-center gap-1 text-[11px] font-semibold text-slate-500">
+          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+          <span>All shown once per mix</span>
+        </div>
+      </div>
+
       {/* Main Flashcard */}
       <div className="bg-white rounded-3xl border-2 border-amber-300 p-5 shadow-xl space-y-4 text-center">
         {/* Clickable Image: Tapping the image pronounces the word! */}
@@ -69,27 +155,62 @@ export default function FlashcardView({
           title="Tap picture to hear pronunciation"
         >
           <ImageWithFallback
-            src={currentItem.image}
+            src={activePhotoUrl}
             alt={currentItem.name}
             aspectRatio="aspect-square"
             priority={true}
           />
 
+          {/* User Requirement: Refresh button to switch between multiple real photos */}
+          <button
+            type="button"
+            onClick={handleRefreshPhoto}
+            disabled={isFetchingPhotos}
+            className="absolute top-2.5 left-2.5 z-20 bg-black/60 hover:bg-black/85 backdrop-blur-md text-white text-[11px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow-md border border-white/20 active:scale-90 transition-all"
+            title="Click to view another real photograph of this word"
+          >
+            <RefreshCw
+              className={`w-3.5 h-3.5 text-amber-300 ${
+                isFetchingPhotos ? "animate-spin" : "group-hover:rotate-45"
+              } transition-transform`}
+            />
+            <span>
+              {isFetchingPhotos
+                ? "Loading..."
+                : imageList.length > 1
+                ? `Photo ${currentImageIndex + 1}/${imageList.length}`
+                : "Different Photo"}
+            </span>
+          </button>
+
           {/* Source badge if from Wikimedia or Custom */}
-          <div className="absolute top-2 right-2 bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+          <div className="absolute top-2.5 right-2.5 bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-0.5 rounded-full pointer-events-none">
             {currentItem.isCustom ? "Custom Added" : "Wikimedia"}
           </div>
 
           {/* Subtle tap prompt overlay */}
-          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full opacity-80 group-hover:opacity-100 transition-opacity">
+          <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none">
             👆 Tap image to speak
           </div>
         </div>
 
-        {/* Word Name */}
-        <h2 className="text-3xl font-black text-slate-800 tracking-tight">
-          {currentItem.name}
-        </h2>
+        {/* Word Name & Secondary Photo Switcher */}
+        <div className="flex items-center justify-center gap-3">
+          <h2 className="text-3xl font-black text-slate-800 tracking-tight">
+            {currentItem.name}
+          </h2>
+          {/* Quick Refresh Icon beside name */}
+          <button
+            type="button"
+            onClick={handleRefreshPhoto}
+            className="p-1.5 rounded-xl bg-slate-100 hover:bg-amber-100 text-slate-600 hover:text-amber-700 transition-colors"
+            title="Switch to another real photo"
+          >
+            <RefreshCw
+              className={`w-4 h-4 ${isFetchingPhotos ? "animate-spin" : ""}`}
+            />
+          </button>
+        </div>
 
         {/* Action Buttons */}
         <div className="grid grid-cols-2 gap-3 pt-1">
@@ -107,11 +228,11 @@ export default function FlashcardView({
             <span>{isSpeaking ? "Speaking..." : "Sound 🔊"}</span>
           </button>
 
-          {/* Random Next Button (Silent switch to another random item) */}
+          {/* Random Next Button (Silent switch to the next random item in the cycle) */}
           <button
-            onClick={handleNextClick}
+            onClick={onNextRandom}
             className="py-3 px-4 rounded-2xl bg-indigo-600 hover:bg-indigo-700 font-bold text-base text-white shadow flex items-center justify-center gap-2 transition-all active:scale-95"
-            title="Show another random card without speaking"
+            title="Next random card in this cycle"
           >
             <Dices className="w-5 h-5" />
             <span>Random Next</span>

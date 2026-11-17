@@ -1,31 +1,64 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
+import confetti from "canvas-confetti";
 import { CATEGORIES as BASE_CATEGORIES } from "./data/categories";
 import { EVERYDAY_WORDS } from "./data/everydayWords";
-import { getMergedCategories, saveCustomCategoryItem } from "./services/customWords";
+import {
+  getMergedCategories,
+  saveCustomCategoryItem,
+  deleteUserCustomCategory
+} from "./services/customWords";
 import Header from "./components/Header";
 import CategoryCard from "./components/CategoryCard";
 import FlashcardView from "./components/FlashcardView";
 import WordLibraryModal from "./components/WordLibraryModal";
 import AddItemModal from "./components/AddItemModal";
-import { Search, Dices, Plus } from "lucide-react";
+import AddCategoryModal from "./components/AddCategoryModal";
+import { Search, Dices, Plus, FolderPlus } from "lucide-react";
+
+/**
+ * Fisher-Yates shuffle that creates a random deck permutation.
+ * Guarantees that every single item comes at least once per cycle!
+ * Also ensures that starting the next cycle won't immediately repeat the previous last item.
+ */
+function createShuffledDeck(length, lastItemIndex = -1) {
+  if (length <= 0) return [];
+  const indices = Array.from({ length }, (_, i) => i);
+  for (let i = indices.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [indices[i], indices[j]] = [indices[j], indices[i]];
+  }
+  if (length > 1 && indices[0] === lastItemIndex) {
+    [indices[0], indices[1]] = [indices[1], indices[0]];
+  }
+  return indices;
+}
 
 export default function App() {
   const [categories, setCategories] = useState(() => getMergedCategories(BASE_CATEGORIES));
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [activeItemIndex, setActiveItemIndex] = useState(0);
+  const [categoryCycle, setCategoryCycle] = useState({
+    deck: [],
+    pos: 0,
+    cycleNumber: 1
+  });
   const [isLibraryOpen, setIsLibraryOpen] = useState(false);
   const [addModalCategory, setAddModalCategory] = useState(null);
+  const [isAddCategoryOpen, setIsAddCategoryOpen] = useState(false);
 
-  // User requirement: When a category is selected, provide a random image from that category.
+  // User requirement: When a category is clicked, start a randomized complete cycle
   const handleSelectCategory = (cat) => {
-    // Find current version of category with any updated custom items
     const currentCat = categories.find((c) => c.id === cat.id) || cat;
-    const randomIndex = Math.floor(Math.random() * currentCat.items.length);
+    const items = currentCat.items || [];
+    const deck = createShuffledDeck(items.length);
     setSelectedCategory(currentCat);
-    setActiveItemIndex(randomIndex);
+    setCategoryCycle({
+      deck,
+      pos: 0,
+      cycleNumber: 1
+    });
   };
 
-  // User requirement: Select a word directly from the 1,000 Everyday Words library
+  // User requirement: Select a word directly from 1,000 Everyday Words library
   const handleSelectEverydayWord = (word) => {
     let index = EVERYDAY_WORDS.findIndex((w) => w.id === word.id);
     let itemsList = EVERYDAY_WORDS;
@@ -42,34 +75,71 @@ export default function App() {
       items: itemsList
     };
 
+    const deck = createShuffledDeck(itemsList.length);
+    const posInDeck = Math.max(deck.indexOf(index), 0);
+
     setSelectedCategory(everydayCategory);
-    setActiveItemIndex(index);
+    setCategoryCycle({
+      deck,
+      pos: posInDeck,
+      cycleNumber: 1
+    });
   };
 
-  // User requirement: Random feature on Next (silent, no auto-speech)
+  // User requirement: Random Next advances through the cycle without repeats until all are shown
   const handleNextRandom = () => {
     if (!selectedCategory) return;
-    const items = selectedCategory.items;
-    let nextIndex = Math.floor(Math.random() * items.length);
+    const items = selectedCategory.items || [];
+    if (items.length <= 1) return;
 
-    if (items.length > 1 && nextIndex === activeItemIndex) {
-      nextIndex = (nextIndex + 1) % items.length;
+    const { deck, pos, cycleNumber } = categoryCycle;
+
+    if (pos + 1 < deck.length) {
+      // Advance to next random card in the current cycle
+      setCategoryCycle({
+        deck,
+        pos: pos + 1,
+        cycleNumber
+      });
+    } else {
+      // Completed full cycle! All images in this category have been shown at least once!
+      try {
+        confetti({
+          particleCount: 50,
+          spread: 60,
+          origin: { y: 0.6 }
+        });
+      } catch (e) {
+        // Fallback if confetti fails
+      }
+
+      // Generate a fresh shuffled cycle, ensuring no immediate repeat across boundary
+      const lastItemIdx = deck[pos];
+      const newDeck = createShuffledDeck(items.length, lastItemIdx);
+
+      setCategoryCycle({
+        deck: newDeck,
+        pos: 0,
+        cycleNumber: cycleNumber + 1
+      });
     }
-
-    setActiveItemIndex(nextIndex);
   };
 
   // Quick random jump into the 1,000 Everyday Words library
   const handleSurpriseEverydayWord = () => {
-    const randomIdx = Math.floor(Math.random() * EVERYDAY_WORDS.length);
     const everydayCategory = {
       id: "everyday-words",
       title: "Everyday Words",
       icon: "📚",
       items: EVERYDAY_WORDS
     };
+    const deck = createShuffledDeck(EVERYDAY_WORDS.length);
     setSelectedCategory(everydayCategory);
-    setActiveItemIndex(randomIdx);
+    setCategoryCycle({
+      deck,
+      pos: 0,
+      cycleNumber: 1
+    });
   };
 
   // Adult Feature: Save a custom added item from Wikimedia Commons to any category
@@ -78,15 +148,42 @@ export default function App() {
     const updatedCategories = getMergedCategories(BASE_CATEGORIES);
     setCategories(updatedCategories);
 
-    // If currently viewing that category, update it and display the new item!
+    // If currently viewing that category, update it and insert the new item into the cycle
     if (selectedCategory && selectedCategory.id === categoryId) {
       const updatedCat = updatedCategories.find((c) => c.id === categoryId);
       if (updatedCat) {
         setSelectedCategory(updatedCat);
-        setActiveItemIndex(0); // The new item is at the top
+        // The newly saved item is at index 0 in updatedCat.items
+        const newDeck = [0, ...categoryCycle.deck.map((idx) => idx + 1)];
+        setCategoryCycle({
+          deck: newDeck,
+          pos: 0,
+          cycleNumber: categoryCycle.cycleNumber
+        });
       }
     }
   };
+
+  // Adult Feature: Create a brand new category by the user
+  const handleCategoryCreated = (newCategory) => {
+    const updatedCategories = getMergedCategories(BASE_CATEGORIES);
+    setCategories(updatedCategories);
+    // Open the new category immediately
+    handleSelectCategory(newCategory);
+  };
+
+  // Adult Feature: Delete a user-created category
+  const handleDeleteCategory = (categoryId) => {
+    deleteUserCustomCategory(categoryId);
+    const updatedCategories = getMergedCategories(BASE_CATEGORIES);
+    setCategories(updatedCategories);
+    if (selectedCategory && selectedCategory.id === categoryId) {
+      setSelectedCategory(null);
+    }
+  };
+
+  const currentItemIndex = categoryCycle.deck[categoryCycle.pos] ?? 0;
+  const currentItem = selectedCategory?.items?.[currentItemIndex];
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans">
@@ -135,15 +232,27 @@ export default function App() {
               </div>
             </div>
 
-            {/* Core Learning Categories */}
+            {/* Core & User-Created Learning Categories */}
             <div>
               <div className="flex items-center justify-between mb-3">
-                <h2 className="text-lg sm:text-xl font-bold text-slate-800">
-                  Select a Learning Category:
-                </h2>
-                <span className="text-xs text-slate-500 font-semibold">
-                  {categories.length} Categories
-                </span>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-lg sm:text-xl font-bold text-slate-800">
+                    Select a Learning Category:
+                  </h2>
+                  <span className="text-xs text-slate-500 font-semibold">
+                    {categories.length} Categories
+                  </span>
+                </div>
+
+                {/* User Feature: Button to Add Category */}
+                <button
+                  onClick={() => setIsAddCategoryOpen(true)}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-sm transition-all active:scale-95"
+                  title="Create a new learning category (Adult mode)"
+                >
+                  <FolderPlus className="w-4 h-4" />
+                  <span>Add Category</span>
+                </button>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -152,9 +261,10 @@ export default function App() {
                     <CategoryCard
                       category={cat}
                       onSelect={handleSelectCategory}
+                      onDelete={handleDeleteCategory}
                     />
 
-                    {/* Quick Adult Add Button on Category Card */}
+                    {/* Quick Adult Add Item Button on Category Card */}
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
@@ -167,6 +277,22 @@ export default function App() {
                     </button>
                   </div>
                 ))}
+
+                {/* Interactive 'Create New Category' Card */}
+                <div
+                  onClick={() => setIsAddCategoryOpen(true)}
+                  className="rounded-3xl border-2 border-dashed border-amber-300 hover:border-amber-500 bg-amber-50/50 hover:bg-amber-50 p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all group min-h-[180px] shadow-sm hover:shadow-md active:scale-98"
+                >
+                  <div className="w-12 h-12 rounded-2xl bg-amber-100 group-hover:bg-amber-200 text-amber-600 flex items-center justify-center mb-2 transition-colors">
+                    <FolderPlus className="w-6 h-6" />
+                  </div>
+                  <span className="font-extrabold text-slate-800 text-base group-hover:text-amber-700">
+                    Create New Category
+                  </span>
+                  <span className="text-xs text-slate-500 font-semibold mt-0.5">
+                    Add Birds, Vehicles, Vegetables & more
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -174,7 +300,10 @@ export default function App() {
           /* ================= CATEGORY FLASHCARD PAGE ================= */
           <FlashcardView
             category={selectedCategory}
-            currentIndex={activeItemIndex}
+            currentItem={currentItem}
+            cyclePosition={categoryCycle.pos + 1}
+            totalInCycle={selectedCategory.items?.length || 0}
+            cycleNumber={categoryCycle.cycleNumber}
             onNextRandom={handleNextRandom}
             onBack={() => setSelectedCategory(null)}
             onOpenAddModal={() => setAddModalCategory(selectedCategory)}
@@ -195,6 +324,13 @@ export default function App() {
         onClose={() => setAddModalCategory(null)}
         category={addModalCategory}
         onSaveItem={handleSaveCustomItem}
+      />
+
+      {/* Adult Add Category Modal (Creates new category with Wikimedia Commons hero) */}
+      <AddCategoryModal
+        isOpen={isAddCategoryOpen}
+        onClose={() => setIsAddCategoryOpen(false)}
+        onCategoryCreated={handleCategoryCreated}
       />
 
       <footer className="bg-white border-t border-slate-200 py-3 text-center text-xs text-slate-500">

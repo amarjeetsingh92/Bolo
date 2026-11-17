@@ -1,7 +1,15 @@
 import React from "react";
 import ImageWithFallback from "./ImageWithFallback";
+import { Trash2 } from "lucide-react";
 
-export default function CategoryCard({ category, onSelect }) {
+export default function CategoryCard({ category, onSelect, onDelete }) {
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    if (window.confirm(`Delete the "${category.title}" category and its custom words?`)) {
+      onDelete?.(category.id);
+    }
+  };
+
   return (
     <div
       onClick={() => onSelect(category)}
@@ -15,6 +23,22 @@ export default function CategoryCard({ category, onSelect }) {
           aspectRatio="aspect-16/10"
           className="group-hover:scale-105 transition-transform duration-300"
         />
+
+        {category.isUserCustom && (
+          <div className="absolute top-2 left-2 z-10 flex items-center gap-1 bg-amber-500/90 backdrop-blur-sm text-white text-[10px] font-black px-2 py-0.5 rounded-full shadow-sm">
+            <span>Custom Category</span>
+          </div>
+        )}
+
+        {category.isUserCustom && onDelete && (
+          <button
+            onClick={handleDelete}
+            className="absolute bottom-2 right-2 z-10 w-7 h-7 rounded-full bg-black/60 hover:bg-rose-600 text-white flex items-center justify-center transition-colors shadow"
+            title="Delete custom category"
+          >
+            <Trash2 className="w-3.5 h-3.5" />
+          </button>
+        )}
       </div>
 
       {/* Category Title & Badge */}
