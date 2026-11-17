@@ -1,72 +1,72 @@
-// Curated child-learning data using authentic, isolated images
-// All body parts, sitting positions, flowers, and plants are 100% isolated subjects with zero distraction!
+// Real Educational Images sourced from Wikimedia Commons
+// 100% Free, Authentic, and Safe for Child Learning
 
 export const CATEGORIES = [
   {
     id: "animal",
     title: "Animals",
     icon: "🦁",
-    heroImage: "https://images.unsplash.com/photo-1534188753412-3e26d0d618d6?auto=format&fit=crop&w=600&q=80",
+    heroImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lion_waiting_in_Namibia.jpg/800px-Lion_waiting_in_Namibia.jpg",
     items: [
       {
         id: "lion",
         name: "Lion",
-        image: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=800&q=80"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lion_waiting_in_Namibia.jpg/800px-Lion_waiting_in_Namibia.jpg"
       },
       {
         id: "elephant",
         name: "Elephant",
-        image: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=800&q=80"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/African_Bush_Elephant.jpg/800px-African_Bush_Elephant.jpg"
       },
       {
         id: "dog",
         name: "Dog",
-        image: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Golden_Retriever_Dukedestiny01_drvd.jpg/800px-Golden_Retriever_Dukedestiny01_drvd.jpg"
       },
       {
         id: "cat",
         name: "Cat",
-        image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=800&q=80"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/800px-Cat03.jpg"
       },
       {
         id: "monkey",
         name: "Monkey",
-        image: "https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?auto=format&fit=crop&w=800&q=80"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Bonnet_macaque_%28Macaca_radiata%29_Photograph_By_Shantanu_Kuveskar.jpg/800px-Bonnet_macaque_%28Macaca_radiata%29_Photograph_By_Shantanu_Kuveskar.jpg"
       },
       {
         id: "panda",
         name: "Panda",
-        image: "https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?auto=format&fit=crop&w=800&q=80"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Grosser_Panda.JPG/800px-Grosser_Panda.JPG"
       },
       {
         id: "giraffe",
         name: "Giraffe",
-        image: "https://images.unsplash.com/photo-1547721064-da6cfb341d50?auto=format&fit=crop&w=800&q=80"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Giraffe_Mikumi_National_Park.jpg/800px-Giraffe_Mikumi_National_Park.jpg"
       },
       {
         id: "penguin",
         name: "Penguin",
-        image: "https://images.unsplash.com/photo-1598439210625-5067c578f3f6?auto=format&fit=crop&w=800&q=80"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/South_Shetland-2016-Deception_Island%E2%80%93Chinstrap_penguin_%28Pygoscelis_antarctica%29_04.jpg/800px-South_Shetland-2016-Deception_Island%E2%80%93Chinstrap_penguin_%28Pygoscelis_antarctica%29_04.jpg"
       },
       {
         id: "rabbit",
         name: "Rabbit",
-        image: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&w=800&q=80"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Oryctolagus_cuniculus_Rcdo.jpg/800px-Oryctolagus_cuniculus_Rcdo.jpg"
       },
       {
         id: "tiger",
         name: "Tiger",
-        image: "https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=800&q=80"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Walking_tiger_female.jpg/800px-Walking_tiger_female.jpg"
       },
       {
         id: "dolphin",
         name: "Dolphin",
-        image: "https://images.unsplash.com/photo-1570481662006-a3a1374699e8?auto=format&fit=crop&w=800&q=80"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Tursiops_truncatus_01.jpg/800px-Tursiops_truncatus_01.jpg"
       },
       {
         id: "zebra",
         name: "Zebra",
-        image: "https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=800&q=80"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Plains_Zebra_Equus_quagga.jpg/800px-Plains_Zebra_Equus_quagga.jpg"
       }
     ]
   },
@@ -74,57 +74,57 @@ export const CATEGORIES = [
     id: "flower",
     title: "Flowers",
     icon: "🌸",
-    heroImage: "/images/flower/rose.svg",
+    heroImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Rosa_rubiginosa_1.jpg/800px-Rosa_rubiginosa_1.jpg",
     items: [
       {
         id: "rose",
         name: "Rose",
-        image: "/images/flower/rose.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Rosa_rubiginosa_1.jpg/800px-Rosa_rubiginosa_1.jpg"
       },
       {
         id: "sunflower",
         name: "Sunflower",
-        image: "/images/flower/sunflower.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Sunflower_sky_backdrop.jpg/800px-Sunflower_sky_backdrop.jpg"
       },
       {
         id: "lotus",
         name: "Lotus",
-        image: "/images/flower/lotus.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Sacred_lotus_Nelumbo_nucifera.jpg/800px-Sacred_lotus_Nelumbo_nucifera.jpg"
       },
       {
         id: "tulip",
         name: "Tulip",
-        image: "/images/flower/tulip.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Tulipa_florenskyi_4.jpg/800px-Tulipa_florenskyi_4.jpg"
       },
       {
         id: "daisy",
         name: "Daisy",
-        image: "/images/flower/daisy.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Bellis_perennis_white_yellow.jpg/800px-Bellis_perennis_white_yellow.jpg"
       },
       {
         id: "marigold",
         name: "Marigold",
-        image: "/images/flower/marigold.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Tagetes_patula_01.jpg/800px-Tagetes_patula_01.jpg"
       },
       {
         id: "hibiscus",
         name: "Hibiscus",
-        image: "/images/flower/hibiscus.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Hibiscus_rosa-sinensis_%27Brilliant%27.jpg/800px-Hibiscus_rosa-sinensis_%27Brilliant%27.jpg"
       },
       {
         id: "jasmine",
         name: "Jasmine",
-        image: "/images/flower/jasmine.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Jasminum_sambac_flower.jpg/800px-Jasminum_sambac_flower.jpg"
       },
       {
         id: "orchid",
         name: "Orchid",
-        image: "/images/flower/orchid.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Phalaenopsis_orchid_flower.jpg/800px-Phalaenopsis_orchid_flower.jpg"
       },
       {
         id: "lavender",
         name: "Lavender",
-        image: "/images/flower/lavender.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Single_lavender_flower02.jpg/800px-Single_lavender_flower02.jpg"
       }
     ]
   },
@@ -132,52 +132,52 @@ export const CATEGORIES = [
     id: "plant",
     title: "Plants & Trees",
     icon: "🌿",
-    heroImage: "/images/plant/oak-tree.svg",
+    heroImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Quercus_robur.jpg/800px-Quercus_robur.jpg",
     items: [
       {
         id: "oak-tree",
         name: "Oak Tree",
-        image: "/images/plant/oak-tree.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Quercus_robur.jpg/800px-Quercus_robur.jpg"
       },
       {
         id: "pine-tree",
         name: "Pine Tree",
-        image: "/images/plant/pine-tree.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Pinus_sylvestris_01.jpg/800px-Pinus_sylvestris_01.jpg"
       },
       {
         id: "coconut-palm",
         name: "Coconut Palm Tree",
-        image: "/images/plant/coconut-palm.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Coconut_Palm_Tree.jpg/800px-Coconut_Palm_Tree.jpg"
       },
       {
         id: "cactus",
         name: "Cactus",
-        image: "/images/plant/cactus.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Golden_barrel_cactus_in_Huntington_Gardens.jpg/800px-Golden_barrel_cactus_in_Huntington_Gardens.jpg"
       },
       {
         id: "bamboo",
         name: "Bamboo",
-        image: "/images/plant/bamboo.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Bambusa_oldhamii_stalks.jpg/800px-Bambusa_oldhamii_stalks.jpg"
       },
       {
         id: "fern",
         name: "Fern",
-        image: "/images/plant/fern.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Athyrium_filix-femina.jpg/800px-Athyrium_filix-femina.jpg"
       },
       {
         id: "aloe-vera",
         name: "Aloe Vera",
-        image: "/images/plant/aloe-vera.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Aloe_vera_flower_inset.png/800px-Aloe_vera_flower_inset.png"
       },
       {
         id: "mint-plant",
         name: "Mint Leaves",
-        image: "/images/plant/mint.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Spearmint_leaves.jpg/800px-Spearmint_leaves.jpg"
       },
       {
         id: "grass",
         name: "Green Grass",
-        image: "/images/plant/grass.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Green_grass_close_up.jpg/800px-Green_grass_close_up.jpg"
       }
     ]
   },
@@ -185,42 +185,42 @@ export const CATEGORIES = [
     id: "body-parts",
     title: "Body Parts",
     icon: "👁️",
-    heroImage: "/images/body-parts/eye.svg",
+    heroImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Human_eye_2013.jpg/800px-Human_eye_2013.jpg",
     items: [
       {
         id: "eye",
         name: "Eye",
-        image: "/images/body-parts/eye.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Human_eye_2013.jpg/800px-Human_eye_2013.jpg"
       },
       {
         id: "ear",
         name: "Ear",
-        image: "/images/body-parts/ear.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Human_ear.jpg/800px-Human_ear.jpg"
       },
       {
         id: "nose",
         name: "Nose",
-        image: "/images/body-parts/nose.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Human_nose.jpg/800px-Human_nose.jpg"
       },
       {
         id: "mouth",
         name: "Mouth",
-        image: "/images/body-parts/mouth.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Smile_teeth_mouth.jpg/800px-Smile_teeth_mouth.jpg"
       },
       {
         id: "hands",
         name: "Hand",
-        image: "/images/body-parts/hands.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Child_hands_open.jpg/800px-Child_hands_open.jpg"
       },
       {
         id: "feet",
         name: "Foot",
-        image: "/images/body-parts/feet.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Human_bare_feet.jpg/800px-Human_bare_feet.jpg"
       },
       {
         id: "teeth",
         name: "Teeth",
-        image: "/images/body-parts/teeth.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Human_teeth_smile.jpg/800px-Human_teeth_smile.jpg"
       }
     ]
   },
@@ -228,37 +228,37 @@ export const CATEGORIES = [
     id: "sitting-position",
     title: "Sitting Positions",
     icon: "🧘",
-    heroImage: "/images/sitting-position/cross-legged.svg",
+    heroImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Sukhasana_Yoga-Asana_Nina-Mel.jpg/800px-Sukhasana_Yoga-Asana_Nina-Mel.jpg",
     items: [
       {
         id: "cross-legged",
         name: "Cross-legged Sitting",
-        image: "/images/sitting-position/cross-legged.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Sukhasana_Yoga-Asana_Nina-Mel.jpg/800px-Sukhasana_Yoga-Asana_Nina-Mel.jpg"
       },
       {
         id: "lotus-pose",
         name: "Lotus Pose",
-        image: "/images/sitting-position/lotus-pose.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Padmasana_Yoga-Asana_Nina-Mel.jpg/800px-Padmasana_Yoga-Asana_Nina-Mel.jpg"
       },
       {
         id: "kneeling",
         name: "Kneeling Position",
-        image: "/images/sitting-position/kneeling.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Vajrasana_Yoga-Asana_Nina-Mel.jpg/800px-Vajrasana_Yoga-Asana_Nina-Mel.jpg"
       },
       {
         id: "chair-sitting",
         name: "Chair Sitting",
-        image: "/images/sitting-position/chair-sitting.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Woman_sitting_in_chair.jpg/800px-Woman_sitting_in_chair.jpg"
       },
       {
         id: "butterfly-sitting",
         name: "Butterfly Sitting",
-        image: "/images/sitting-position/butterfly.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Baddha_Konasana_Yoga-Asana_Nina-Mel.jpg/800px-Baddha_Konasana_Yoga-Asana_Nina-Mel.jpg"
       },
       {
         id: "squatting",
         name: "Squatting Position",
-        image: "/images/sitting-position/squatting.svg"
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Malasana_Yoga-Asana_Nina-Mel.jpg/800px-Malasana_Yoga-Asana_Nina-Mel.jpg"
       }
     ]
   }

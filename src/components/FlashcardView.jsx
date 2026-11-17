@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Volume2, Dices, ArrowLeft } from "lucide-react";
+import { Volume2, Dices, ArrowLeft, Plus } from "lucide-react";
 import ImageWithFallback from "./ImageWithFallback";
 import { speakWord } from "../utils/speech";
 
@@ -7,7 +7,8 @@ export default function FlashcardView({
   category,
   currentIndex,
   onNextRandom,
-  onBack
+  onBack,
+  onOpenAddModal
 }) {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const currentItem = category.items[currentIndex] || category.items[0];
@@ -30,7 +31,7 @@ export default function FlashcardView({
 
   return (
     <div className="max-w-md mx-auto space-y-4">
-      {/* Top Bar: Back to Categories & Current Category Name */}
+      {/* Top Bar: Back to Categories, Category Name, and Adult Add Item Button */}
       <div className="flex items-center justify-between">
         <button
           onClick={onBack}
@@ -40,9 +41,23 @@ export default function FlashcardView({
           <span>All Categories</span>
         </button>
 
-        <span className="font-extrabold text-slate-700 text-base">
-          {category.icon} {category.title}
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="font-extrabold text-slate-700 text-base">
+            {category.icon} {category.title}
+          </span>
+
+          {/* Adult Add Button */}
+          {onOpenAddModal && (
+            <button
+              onClick={onOpenAddModal}
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold border border-amber-300 active:scale-95 transition-all"
+              title={`Add a new ${category.title} item (Adult mode)`}
+            >
+              <Plus className="w-3.5 h-3.5 text-amber-700" />
+              <span>Add</span>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Main Flashcard */}
@@ -59,6 +74,11 @@ export default function FlashcardView({
             aspectRatio="aspect-square"
             priority={true}
           />
+
+          {/* Source badge if from Wikimedia or Custom */}
+          <div className="absolute top-2 right-2 bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+            {currentItem.isCustom ? "Custom Added" : "Wikimedia"}
+          </div>
 
           {/* Subtle tap prompt overlay */}
           <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full opacity-80 group-hover:opacity-100 transition-opacity">

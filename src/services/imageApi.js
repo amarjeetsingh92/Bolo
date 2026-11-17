@@ -1,115 +1,125 @@
-// Real-World Image API Service for Educational Vocabulary
-// Supports:
-// 1. Wikimedia Commons Public Educational API (Zero API key required!)
-// 2. Unsplash API (Optional user API key)
-// 3. Pexels API (Optional user API key)
+// Wikimedia Commons API Image Retrieval Service
+// 100% Free, unlimited requests, authentic encyclopedic real photography.
 
+const imageCache = new Map();
+
+// Optional user keys if they ever configure them
 const API_KEYS = {
-  unsplash: localStorage.getItem("bolo_unsplash_key") || "",
-  pexels: localStorage.getItem("bolo_pexels_key") || ""
+  unsplash: typeof localStorage !== "undefined" ? localStorage.getItem("bolo_unsplash_key") || "" : "",
+  pexels: typeof localStorage !== "undefined" ? localStorage.getItem("bolo_pexels_key") || "" : ""
 };
 
 export function setApiKey(provider, key) {
   API_KEYS[provider] = key;
-  localStorage.setItem(`bolo_${provider}_key`, key);
+  if (typeof localStorage !== "undefined") {
+    localStorage.setItem(`bolo_${provider}_key`, key);
+  }
 }
 
 export function getApiKey(provider) {
   return API_KEYS[provider] || "";
 }
 
-/**
- * Searches real-world photography for any everyday object.
- * Priority:
- * 1. Unsplash (if key provided)
- * 2. Pexels (if key provided)
- * 3. Wikimedia Commons Open API (100% free, authentic encyclopedic photo)
- */
-export async function searchRealImage(query) {
-  const cleanQuery = query.toLowerCase().trim();
-
-  // 1. Try Unsplash if user configured a key
-  if (API_KEYS.unsplash) {
-    try {
-      const res = await fetch(
-        `https://api.unsplash.com/search/photos?page=1&per_page=1&query=${encodeURIComponent(
-          cleanQuery
-        )}`,
-        {
-          headers: {
-            Authorization: `Client-ID ${API_KEYS.unsplash}`
-          }
-        }
-      );
-      if (res.ok) {
-        const data = await res.json();
-        if (data.results && data.results.length > 0) {
-          return {
-            url: data.results[0].urls.regular,
-            source: "Unsplash",
-            author: data.results[0].user?.name
-          };
-        }
-      }
-    } catch (e) {
-      console.warn("Unsplash API query error:", e);
-    }
+// Load cached URLs from localStorage if available
+try {
+  const stored = typeof localStorage !== "undefined" ? localStorage.getItem("bolo_wikimedia_cache") : null;
+  if (stored) {
+    const parsed = JSON.parse(stored);
+    Object.entries(parsed).forEach(([k, v]) => imageCache.set(k, v));
   }
+} catch (e) {
+  // Ignore localStorage errors
+}
 
-  // 2. Try Pexels if user configured a key
-  if (API_KEYS.pexels) {
-    try {
-      const res = await fetch(
-        `https://api.pexels.com/v1/search?query=${encodeURIComponent(
-          cleanQuery
-        )}&per_page=1`,
-        {
-          headers: {
-            Authorization: API_KEYS.pexels
-          }
-        }
-      );
-      if (res.ok) {
-        const data = await res.json();
-        if (data.photos && data.photos.length > 0) {
-          return {
-            url: data.photos[0].src.large,
-            source: "Pexels",
-            author: data.photos[0].photographer
-          };
-        }
-      }
-    } catch (e) {
-      console.warn("Pexels API query error:", e);
-    }
-  }
-
-  // 3. Wikimedia Commons Open API (No key needed! Authentic encyclopedia photo)
+function saveCache() {
   try {
-    const res = await fetch(
-      `https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=pageimages&piprop=original|thumbnail&pithumbsize=800&titles=${encodeURIComponent(
-        cleanQuery
-      )}`
-    );
+    if (typeof localStorage !== "undefined") {
+      const obj = Object.fromEntries(imageCache.entries());
+      localStorage.setItem("bolo_wikimedia_cache", JSON.stringify(obj));
+    }
+  } catch (e) {
+    // Ignore quota errors
+  }
+}
+
+/**
+ * Searches and retrieves a high-resolution real photo from Wikimedia Commons for any word.
+ */
+export async function fetchWikimediaImage(query) {
+  if (!query || typeof query !== "string") return null;
+  const cleanQuery = query.trim().toLowerCase();
+
+  if (imageCache.has(cleanQuery)) {
+    return imageCache.get(cleanQuery);
+  }
+
+  // 1. Wikipedia Lead Encyclopedia Image (highest relevance for educational concepts)
+  try {
+    const wikiUrl = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(
+      cleanQuery
+    )}&gsrlimit=1&prop=pageimages&piprop=original|thumbnail&pithumbsize=900&format=json&origin=*`;
+
+    const res = await fetch(wikiUrl);
     if (res.ok) {
       const data = await res.json();
       const pages = data.query?.pages;
       if (pages) {
         const pageKey = Object.keys(pages)[0];
         const page = pages[pageKey];
-        const imageUrl = page.original?.source || page.thumbnail?.source;
-        if (imageUrl) {
-          return {
-            url: imageUrl,
-            source: "Wikimedia Commons",
-            author: page.title
+        const imgUrl = page?.thumbnail?.source || page?.original?.source;
+        if (imgUrl) {
+          const result = {
+            url: imgUrl,
+            title: page.title,
+            source: "Wikimedia Commons"
           };
+          imageCache.set(cleanQuery, result);
+          saveCache();
+          return result;
         }
       }
     }
-  } catch (e) {
-    console.warn("Wikimedia API error:", e);
+  } catch (err) {
+    console.warn("Wikipedia image lookup error:", err);
+  }
+
+  // 2. Wikimedia Commons Direct Media Search Fallback
+  try {
+    const commonsUrl = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(
+      cleanQuery + " filetype:bitmap"
+    )}&gsrnamespace=6&gsrlimit=1&prop=imageinfo&iiprop=url&iiurlwidth=900&format=json&origin=*`;
+
+    const res = await fetch(commonsUrl);
+    if (res.ok) {
+      const data = await res.json();
+      const pages = data.query?.pages;
+      if (pages) {
+        const pageKey = Object.keys(pages)[0];
+        const page = pages[pageKey];
+        const imgInfo = page?.imageinfo?.[0];
+        const imgUrl = imgInfo?.thumburl || imgInfo?.url;
+        if (imgUrl) {
+          const result = {
+            url: imgUrl,
+            title: page.title,
+            source: "Wikimedia Commons"
+          };
+          imageCache.set(cleanQuery, result);
+          saveCache();
+          return result;
+        }
+      }
+    }
+  } catch (err) {
+    console.warn("Wikimedia Commons search error:", err);
   }
 
   return null;
+}
+
+/**
+ * Universal search alias used by components.
+ */
+export async function searchRealImage(query) {
+  return fetchWikimediaImage(query);
 }
