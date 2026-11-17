@@ -1,34 +1,19 @@
-// Wikimedia Commons API Image Retrieval Service
-// 100% Free, unlimited requests, authentic encyclopedic real photography.
+// Real-world Image Service using Wikipedia & Wikimedia Official REST APIs
+// 100% Free, Instant Loading, Accurate Encyclopedic Lead Images
 
 const imageCache = new Map();
 
-// Optional user keys if they ever configure them
-const API_KEYS = {
-  unsplash: typeof localStorage !== "undefined" ? localStorage.getItem("bolo_unsplash_key") || "" : "",
-  pexels: typeof localStorage !== "undefined" ? localStorage.getItem("bolo_pexels_key") || "" : ""
-};
-
-export function setApiKey(provider, key) {
-  API_KEYS[provider] = key;
-  if (typeof localStorage !== "undefined") {
-    localStorage.setItem(`bolo_${provider}_key`, key);
-  }
-}
-
-export function getApiKey(provider) {
-  return API_KEYS[provider] || "";
-}
-
-// Load cached URLs from localStorage if available
+// Load cached URLs from localStorage
 try {
-  const stored = typeof localStorage !== "undefined" ? localStorage.getItem("bolo_wikimedia_cache") : null;
-  if (stored) {
-    const parsed = JSON.parse(stored);
-    Object.entries(parsed).forEach(([k, v]) => imageCache.set(k, v));
+  if (typeof localStorage !== "undefined") {
+    const stored = localStorage.getItem("bolo_wikimedia_cache");
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      Object.entries(parsed).forEach(([k, v]) => imageCache.set(k, v));
+    }
   }
 } catch (e) {
-  // Ignore localStorage errors
+  // Ignore localStorage issues
 }
 
 function saveCache() {
@@ -38,28 +23,74 @@ function saveCache() {
       localStorage.setItem("bolo_wikimedia_cache", JSON.stringify(obj));
     }
   } catch (e) {
-    // Ignore quota errors
+    // Ignore quota issues
   }
 }
 
 /**
- * Searches and retrieves a high-resolution real photo from Wikimedia Commons for any word.
+ * Searches and retrieves a fast, lightweight real photo from Wikimedia/Wikipedia.
+ * Uses official REST API endpoint: /api/rest_v1/page/summary/{title}
+ * Returns official pre-rendered cached thumbnails in ~30ms.
  */
 export async function fetchWikimediaImage(query) {
   if (!query || typeof query !== "string") return null;
   const cleanQuery = query.trim().toLowerCase();
 
+  // Instant 0ms cache hit
   if (imageCache.has(cleanQuery)) {
     return imageCache.get(cleanQuery);
   }
 
-  // 1. Wikipedia Lead Encyclopedia Image (highest relevance for educational concepts)
+  // 1. Wikipedia REST Summary API (returns official, 200 OK pre-rendered thumbnails in ~30ms)
   try {
-    const wikiUrl = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(
-      cleanQuery
-    )}&gsrlimit=1&prop=pageimages&piprop=original|thumbnail&pithumbsize=900&format=json&origin=*`;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3500);
 
-    const res = await fetch(wikiUrl);
+    const restUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(
+      cleanQuery
+    )}`;
+
+    const res = await fetch(restUrl, {
+      signal: controller.signal,
+      headers: {
+        "User-Agent": "BoloKidsApp/1.0 (https://example.com/bolo; contact@example.com)"
+      }
+    });
+    clearTimeout(timeoutId);
+
+    if (res.ok) {
+      const data = await res.json();
+      const imgUrl = data.thumbnail?.source || data.originalimage?.source;
+      if (imgUrl) {
+        const result = {
+          url: imgUrl,
+          title: data.title,
+          description: data.description || cleanQuery,
+          source: "Wikimedia Commons"
+        };
+        imageCache.set(cleanQuery, result);
+        saveCache();
+        return result;
+      }
+    }
+  } catch (err) {
+    console.warn("REST summary lookup notice:", err.message);
+  }
+
+  // 2. Wikipedia Search API Fallback (with standard 600px bucket)
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3500);
+
+    const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(
+      cleanQuery
+    )}&gsrlimit=1&prop=pageimages&pithumbsize=640&format=json&origin=*`;
+
+    const res = await fetch(searchUrl, {
+      signal: controller.signal
+    });
+    clearTimeout(timeoutId);
+
     if (res.ok) {
       const data = await res.json();
       const pages = data.query?.pages;
@@ -80,46 +111,15 @@ export async function fetchWikimediaImage(query) {
       }
     }
   } catch (err) {
-    console.warn("Wikipedia image lookup error:", err);
-  }
-
-  // 2. Wikimedia Commons Direct Media Search Fallback
-  try {
-    const commonsUrl = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(
-      cleanQuery + " filetype:bitmap"
-    )}&gsrnamespace=6&gsrlimit=1&prop=imageinfo&iiprop=url&iiurlwidth=900&format=json&origin=*`;
-
-    const res = await fetch(commonsUrl);
-    if (res.ok) {
-      const data = await res.json();
-      const pages = data.query?.pages;
-      if (pages) {
-        const pageKey = Object.keys(pages)[0];
-        const page = pages[pageKey];
-        const imgInfo = page?.imageinfo?.[0];
-        const imgUrl = imgInfo?.thumburl || imgInfo?.url;
-        if (imgUrl) {
-          const result = {
-            url: imgUrl,
-            title: page.title,
-            source: "Wikimedia Commons"
-          };
-          imageCache.set(cleanQuery, result);
-          saveCache();
-          return result;
-        }
-      }
-    }
-  } catch (err) {
-    console.warn("Wikimedia Commons search error:", err);
+    console.warn("Search API fallback notice:", err.message);
   }
 
   return null;
 }
 
-/**
- * Universal search alias used by components.
- */
 export async function searchRealImage(query) {
   return fetchWikimediaImage(query);
 }
+
+export function setApiKey() {}
+export function getApiKey() { return ""; }

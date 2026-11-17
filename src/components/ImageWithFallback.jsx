@@ -1,33 +1,60 @@
 import React, { useState, useEffect } from "react";
-import { Image as ImageIcon } from "lucide-react";
+import { Image as ImageIcon, Volume2 } from "lucide-react";
 
 export default function ImageWithFallback({
   src,
   alt = "",
   className = "",
   aspectRatio = "aspect-square",
-  priority = false
+  priority = false,
+  fallbackSrc
 }) {
+  const [currentSrc, setCurrentSrc] = useState(src);
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasTriedFallback, setHasTriedFallback] = useState(false);
 
-  // Critical fix: Reset error and loading state whenever the image src changes!
+  // Reset state whenever the source prop changes
   useEffect(() => {
+    setCurrentSrc(src);
     setHasError(false);
     setIsLoading(true);
+    setHasTriedFallback(false);
   }, [src]);
 
-  if (hasError || !src) {
+  const handleImageError = () => {
+    // If we haven't tried the fallbackSrc yet and one is provided, try it!
+    if (!hasTriedFallback && fallbackSrc && fallbackSrc !== currentSrc) {
+      setHasTriedFallback(true);
+      setCurrentSrc(fallbackSrc);
+      setIsLoading(true);
+      return;
+    }
+
+    // Both failed or no fallback available
+    setIsLoading(false);
+    setHasError(true);
+  };
+
+  const handleImageLoad = () => {
+    setIsLoading(false);
+    setHasError(false);
+  };
+
+  if (hasError || !currentSrc) {
     return (
       <div
-        className={`fallback-box flex flex-col items-center justify-center p-6 text-center select-none bg-slate-100 ${aspectRatio} ${className}`}
-        style={{
-          borderRadius: "1.25rem",
-        }}
+        className={`flex flex-col items-center justify-center p-6 text-center select-none bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-dashed border-amber-200 ${aspectRatio} ${className}`}
+        style={{ borderRadius: "1.25rem" }}
       >
-        <ImageIcon className="w-12 h-12 text-slate-400 mb-2 animate-pulse" />
-        <span className="text-xs font-semibold text-slate-500">
-          Loading picture...
+        <div className="w-14 h-14 rounded-full bg-amber-100 flex items-center justify-center mb-2 shadow-sm">
+          <ImageIcon className="w-7 h-7 text-amber-500" />
+        </div>
+        <span className="text-base font-extrabold text-amber-900 tracking-tight">
+          {alt || "Learning Word"}
+        </span>
+        <span className="text-[11px] font-semibold text-amber-600/80 mt-1 flex items-center gap-1">
+          <Volume2 className="w-3 h-3" /> Tap to hear pronunciation
         </span>
       </div>
     );
@@ -41,20 +68,14 @@ export default function ImageWithFallback({
         </div>
       )}
       <img
-        src={src}
+        src={currentSrc}
         alt={alt}
         referrerPolicy="no-referrer"
-        crossOrigin="anonymous"
         loading={priority ? "eager" : "lazy"}
-        onLoad={() => {
-          setIsLoading(false);
-          setHasError(false);
-        }}
-        onError={() => {
-          setIsLoading(false);
-          setHasError(true);
-        }}
-        className={`w-full h-full object-cover transition-opacity duration-300 ${
+        decoding="async"
+        onLoad={handleImageLoad}
+        onError={handleImageError}
+        className={`w-full h-full object-cover transition-opacity duration-200 ${
           isLoading ? "opacity-0" : "opacity-100"
         }`}
       />

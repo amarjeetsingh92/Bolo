@@ -28,7 +28,7 @@ export const EVERYDAY_WORDS = [
     id: "fork",
     name: "Fork",
     category: "home-kitchen",
-    image: "https://images.unsplash.com/photo-1594951479836-82eb75b0ef33?auto=format&fit=crop&w=800&q=80",
+    image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/Assorted_forks.jpg/330px-Assorted_forks.jpg",
     example: "We use a fork to pick up fruits and noodles."
   },
   {
@@ -42,7 +42,7 @@ export const EVERYDAY_WORDS = [
     id: "bowl",
     name: "Bowl",
     category: "home-kitchen",
-    image: "https://images.unsplash.com/photo-1567767292723-5e92b3a1a9e6?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1576867757603-05b134ebc379?auto=format&fit=crop&w=800&q=80",
     example: "A round bowl holds crunchy morning cereal."
   },
   {
@@ -63,7 +63,7 @@ export const EVERYDAY_WORDS = [
     id: "chair",
     name: "Chair",
     category: "home-kitchen",
-    image: "https://images.unsplash.com/photo-1580481077195-c328a37db719?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=800&q=80",
     example: "Sit down comfortably on the chair."
   },
   {
@@ -112,7 +112,7 @@ export const EVERYDAY_WORDS = [
     id: "window",
     name: "Window",
     category: "home-kitchen",
-    image: "https://images.unsplash.com/photo-1508873696983-2df5293cb32f?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
     example: "Look at the sunny blue sky through the window."
   },
   {
@@ -163,7 +163,7 @@ export const EVERYDAY_WORDS = [
     id: "water",
     name: "Water",
     category: "food-drinks",
-    image: "https://images.unsplash.com/photo-1548839140-29a749e1bc4e?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=800&q=80",
     example: "Pure clean water quenches our thirst."
   },
   {
@@ -351,21 +351,21 @@ export const EVERYDAY_WORDS = [
     id: "toothbrush",
     name: "Toothbrush",
     category: "bathroom",
-    image: "https://images.unsplash.com/photo-1559591937-e1032b4a5359?auto=format&fit=crop&w=800&q=80",
+    image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Toothbrush_20050716_004.jpg/330px-Toothbrush_20050716_004.jpg",
     example: "Brush teeth every morning and evening."
   },
   {
     id: "soap",
     name: "Soap",
     category: "bathroom",
-    image: "https://images.unsplash.com/photo-1607006314187-57b856b3e704?auto=format&fit=crop&w=800&q=80",
+    image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Handmade_soap_cropped_and_simplified.jpg/330px-Handmade_soap_cropped_and_simplified.jpg",
     example: "Wash hands with bubbly soap and water."
   },
   {
     id: "towel",
     name: "Towel",
     category: "bathroom",
-    image: "https://images.unsplash.com/photo-1616627547584-bf28cee262db?auto=format&fit=crop&w=800&q=80",
+    image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Zusammengelegte_Handt%C3%BCcher.jpg/330px-Zusammengelegte_Handt%C3%BCcher.jpg",
     example: "Dry off with a soft bath towel."
   },
   {
@@ -379,7 +379,7 @@ export const EVERYDAY_WORDS = [
     id: "comb",
     name: "Comb",
     category: "bathroom",
-    image: "https://images.unsplash.com/photo-1590159763121-7c9ff3149e0a?auto=format&fit=crop&w=800&q=80",
+    image: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4a/Plastic_comb%2C_2015-06-07.jpg/330px-Plastic_comb%2C_2015-06-07.jpg",
     example: "Combing hair neat and tidy after waking up."
   },
 
@@ -548,7 +548,7 @@ export const EVERYDAY_WORDS = [
     id: "eating",
     name: "Eating",
     category: "actions",
-    image: "https://images.unsplash.com/photo-1505253758473-96b3d55fdd6f?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1544717302-de2939b7ef71?auto=format&fit=crop&w=800&q=80",
     example: "Eating healthy meals makes us strong."
   },
   {
